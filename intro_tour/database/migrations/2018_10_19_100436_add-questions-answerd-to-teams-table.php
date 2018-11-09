@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParticipantsTable extends Migration
+class AddQuestionsAnswerdToTeamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('participants', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('team_id')->default('0');
-            $table->timestamps();
+        Schema::table('teams', function (Blueprint $table) {
+            $table->jsonb('questions_answerd')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participants');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropColumn('questions_answerd');
+        });
     }
 }

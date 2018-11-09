@@ -30,13 +30,13 @@ export class MessagesService {
     // Prevent messages from overlapping
     let topCss: string = '';
     if ($('.ui.message.generated').length > 0) {
-      let topPx: number = 60 + ($('.ui.message.generated').outerHeight() * $('.ui.message.generated').length);
+      let topPx: number = 60 + ($('.ui.message.generated').outerHeight() * $('.ui.message.generated').length) + 5;
       topCss = 'top:' + topPx + 'px;';
     }
 
     // Mesage html template
     let htmlTemplate:string = 
-    `<div class="ui ${cssClass} message transition generated" style="${topCss}">
+    `<div class="ui ${cssClass} message transition generated" style="${topCss}; z-index: 1000001">
       <i class="close icon"></i>
       <div class="header">
         ${title}
@@ -49,6 +49,15 @@ export class MessagesService {
     // Add jquery to close message
     $(".close.icon").click(function(){
       $(this).parent().remove();
+    });
+  }
+
+  closeMessage(){
+    var messages = Array.from(document.getElementsByClassName('message'));
+    messages.splice(-1, 1);
+
+    messages.forEach((message) => {
+      $('.' + message.classList[2]).remove();
     });
   }
 }

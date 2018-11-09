@@ -16,11 +16,13 @@ import { TeamCreateComponent } from './components/team-create/team-create.compon
 import { MinutesSecondsPipe } from './pipes/minutes-seconds.pipe';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { PointReplacerPipe } from './pipes/point-replacer.pipe';
+import { TeamJoinComponent } from './components/team-join/team-join.component';
 
 const appRoutes: Routes = [
 	{ path: 'location', component: LocationPageComponent },
 	{ path: 'home', component: HomeComponent },
 	{ path: 'team-create', component: TeamCreateComponent },
+	{ path: 'team-join', component: TeamJoinComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: '', component: LoginComponent },
 	{ path: 'leaderboard', component: LeaderboardComponent }
@@ -36,7 +38,8 @@ const appRoutes: Routes = [
 		TeamCreateComponent,
 		MinutesSecondsPipe,
 		LeaderboardComponent,
-		PointReplacerPipe
+		PointReplacerPipe,
+		TeamJoinComponent
 	],
 	imports: [
 		BrowserModule,

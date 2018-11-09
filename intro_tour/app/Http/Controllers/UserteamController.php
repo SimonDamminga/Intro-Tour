@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use App\Location;
+use App\Participant;
 
-class LocationController extends Controller
+class UserteamController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
-        
-        return $locations;
+        return 'This Works';
     }
 
     /**
@@ -44,14 +41,12 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($pin)
     {
-        $locations = Location::where('id', $id)->get();
-        
-        return $locations;
+        return Participant::where('team_id', $pin)->get();
     }
 
     /**
@@ -69,14 +64,12 @@ class LocationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Location  $location
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, $id)
     {
-        $location->update($request->all());
-
-        return response()->json($location, 204);
+        //
     }
 
     /**

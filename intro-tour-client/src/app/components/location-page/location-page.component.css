@@ -39,6 +39,12 @@ agm-map{
     margin: 10px 0px 0px 20px;
     font-weight: bold;
 }
+.q-points{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+    margin: 5px 0px 0px 20px;
+    color: #c4c4c4;
+}
 .q-options{
     margin: 10px 0px 0px 20px;
     font-family: 'Bree Serif', serif;

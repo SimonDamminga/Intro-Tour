@@ -8,13 +8,13 @@
   <div id="login-element">
     <h2>INTRO TOUR</h2><br>
       <div class="ui massive input" id="name_input">
-        <input  [(ngModel)]="name" type="text" placeholder="Naam" name="name" required maxlength="20">
+        <input  [(ngModel)]="name" type="text" placeholder="Naam" name="name" required maxlength="20" autofocus>
       </div><br>
       <div>
-        <input type="submit" class="massive one ui blue button" value="Maak een Team" (click)="goToPage('team-create')">
+        <input type="button" class="massive one ui blue button" value="Maak een Team" (click)="goToPage('team-create')">
       </div><br>
       <div>
-        <input type="submit" class="massive one ui teal button" value="Join een Team" (click)="goToPage('join-team')">
+        <input type="button" class="massive one ui teal button" value="Join een Team" (click)="goToPage('team-join')">
       </div>
   </div>
 </div>

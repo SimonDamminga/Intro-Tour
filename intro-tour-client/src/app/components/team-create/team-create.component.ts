@@ -50,7 +50,7 @@ export class TeamCreateComponent implements OnInit {
 
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	private addLoader() {$('.ui.loader').parent().addClass(['active', 'dimmer'])};
-	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');	};
+	private removeLodaer() {$('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home');};
 
 	private errorHandler() {
     if(this.team.team_name == "" || this.team.tour_id == null){
@@ -68,6 +68,7 @@ export class TeamCreateComponent implements OnInit {
         document.getElementById('tour_id_input').classList.remove('error');
       }
     }else{
+			this.messagesServices.closeMessage();
 			this.addLoader();
 		}
 	}
@@ -112,7 +113,7 @@ export class TeamCreateComponent implements OnInit {
 	// Post call to create new user
 	private createUser(teamRes) {
 		this.teamId = teamRes.id;
-		this.user.team_id = this.teamId;
+		this.user.team_id = teamRes.team_pin;
 		this.user.name = this.player.name;
 		//this.http.post(this.apiUrl + 'participants', this.user) old
 		this.participantService.createUser(this.user)
@@ -132,7 +133,6 @@ export class TeamCreateComponent implements OnInit {
 	// Updates team to add the id of the team leader
 	private updateTeam(userRes) {
 		this.team.team_leader = userRes.id;
-		console.log(this.team);
 		//this.http.put(this.apiUrl + 'teams/' + this.teamId, {team_leader: this.team.team_leader}) old
 		this.teamService.updateTeam(this.teamId, {team_leader: this.team.team_leader})
 		.subscribe(
@@ -160,11 +160,10 @@ export class TeamCreateComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		$("input:text:visible:first").focus();
 		this.userName.currentName.subscribe(name => this.player.name = name);
 		if(this.player.name == 'John Doe' || this.player.name == undefined){
 			this.router.navigateByUrl('/login');
-		}else{
-			console.log(this.player);
 		}
 	}
 }

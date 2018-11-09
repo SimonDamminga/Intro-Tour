@@ -14,16 +14,19 @@ export class AppComponent {
   teamName;
   teamPin;
 
-  constructor (private teamService: TeamService, private localstorageService: LocalstorageService) {}
+  constructor (private teamService: TeamService, private localstorageService: LocalstorageService) {
+
+  }
 
   ngOnInit(){
     //teamname in header
-    if(this.localstorageService.getItem('team') == null){
-      this.teamService.currentTeamName.subscribe(name => this.teamName = name);
-    }else{
-      this.teamName = this.localstorageService.getItem('team').team_name;
-    }
-    
+    setTimeout(() => {
+      if(this.localstorageService.getItem('team') == null){
+        this.teamService.teamName('INTRO TOUR');
+        this.teamService.currentTeamName.subscribe(name => this.teamName = name);
+      }else{
+        this.teamName = this.localstorageService.getItem('team').team_name;
+      }      
+    }, 100);
   }
-
 }

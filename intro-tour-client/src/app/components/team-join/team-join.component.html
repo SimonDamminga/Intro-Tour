@@ -10,15 +10,12 @@
 	</div>
 	<div id="team-create-element">
 		<form action="">
-			<h2>Maak een Team</h2><br>
+			<h2>Join een Team</h2><br>
 			<div class="ui massive input" id="tour_id_input">
-				<input [(ngModel)]="team.tour_id" type="text" placeholder="Tour ID" name="tour_id">
-			</div><br>
-			<div class="ui massive input" id="name_input">
-				<input [(ngModel)]="team.team_name" type="text" placeholder="Team Naam" name="team-name" maxlength="20">
+				<input [(ngModel)]="team.team_pin" type="text" placeholder="Team Pin" name="team_pin" autofocus>
 			</div><br>
 			<div>
-				<input id="submit-button" type="submit" class="massive one ui blue button" value="GO!" (click)="createTeamAndUser()">
+				<input id="submit-button" type="submit" class="massive one ui blue button" value="GO!" (click)="checkIfTeamExists()">
 			</div>
 		</form>
 	</div>

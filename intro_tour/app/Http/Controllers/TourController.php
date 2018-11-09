@@ -36,9 +36,9 @@ class TourController extends Controller
      * @param  \App\Tour  $tour
      * @return \Illuminate\Http\Response
      */
-    public function show(Tour $tour)
+    public function show($id)
     {
-        return $tour;
+        return Tour::where('tour_code', $id)->get();
     }
 
     /**
