@@ -17,6 +17,7 @@ class QuestionsSeeder extends Seeder
         'question' => "How can you repel the haters?",
         ],[
         'question' => "Whitch is the better paul brother?",
+        'hint' => "none",
         ],[
         'question' => "Why are we still here?"
         ]
