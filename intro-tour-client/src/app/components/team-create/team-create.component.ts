@@ -60,17 +60,20 @@ export class TeamCreateComponent implements OnInit {
 				this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TEAM NAAM is verplicht');
 			} else {
 				document.getElementById('name_input').classList.remove('error');
+				this.formFieldErrors = false;
 			}
 			if (this.team.tour_id == null) {
 				document.getElementById('tour_id_input').classList.add('error');
 				this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Het veld TOUR ID is verplicht');
 			} else {
 				document.getElementById('tour_id_input').classList.remove('error');
+				this.formFieldErrors = false;
 			}
 		} else {
 			this.messagesServices.closeMessage();
 			this.addLoader();
 			this.formFieldErrors = false;
+			this.checkTourId();
 		}
 	}
 
@@ -160,7 +163,6 @@ export class TeamCreateComponent implements OnInit {
 
 	public createTeamAndUser() {
 		this.messagesServices.closeMessage();
-		this.checkTourId();
 		this.errorHandler();
 	}
 
