@@ -88,6 +88,7 @@ export class TeamJoinComponent implements OnInit {
 	}
 
 	public checkIfTeamExists() {
+		this.messagesServices.closeMessage();
 		this.teamService.getTeamByTeamPin(this.team.team_pin).subscribe((res: Response) => {
 			if (res[0] != undefined) {
 				this.messagesServices.closeMessage();

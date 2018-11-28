@@ -159,6 +159,7 @@ export class TeamCreateComponent implements OnInit {
 	}
 
 	public createTeamAndUser() {
+		this.messagesServices.closeMessage();
 		this.checkTourId();
 		this.errorHandler();
 	}
