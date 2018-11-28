@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { UserNameService } from '../../services/user-name.service';
 import { TeamService } from '../../services/team.service';
 import { MessageTypes } from '../../message-types';
@@ -23,7 +21,6 @@ import * as $ from 'jquery';
 export class TeamCreateComponent implements OnInit {
 
 	constructor(
-		private http: HttpClient,
 		private router: Router,
 		private userName: UserNameService,
 		private teamService: TeamService,
@@ -50,8 +47,8 @@ export class TeamCreateComponent implements OnInit {
 		team_id: null
 	}
 	private teamId: number;
+	private formFieldErrors: boolean = true;
 
-	private apiUrl: string = environment.API_URL;
 	private addLoader() { $('.ui.loader').parent().addClass(['active', 'dimmer']) };
 	private removeLodaer() { $('.ui.loader').parent().removeClass(['active', 'dimmer']); this.router.navigateByUrl('/home'); };
 
@@ -73,11 +70,15 @@ export class TeamCreateComponent implements OnInit {
 		} else {
 			this.messagesServices.closeMessage();
 			this.addLoader();
+			this.formFieldErrors = false;
 		}
 	}
 
 	// Check if tour exists
 	private checkTourId() {
+		if (this.formFieldErrors) {
+			return;
+		}
 		if (this.team.tour_id !== null) {
 			//this.http.get(this.apiUrl + 'tours/' + this.team.tour_id) old
 			this.tourService.getTour(this.team.tour_id)
@@ -98,21 +99,24 @@ export class TeamCreateComponent implements OnInit {
 
 	// Post call to create a new team
 	private createTeam() {
+		if (this.formFieldErrors) {
+			return;
+		}
 		this.teamService.teamName(this.team.team_name);
 		//this.http.post(this.apiUrl + 'teams', this.team) old
 		this.teamService.createTeam(this.team)
-		.subscribe(
-        (res:Team) => {
-			this.team.team_pin = res.team_pin;
-			this.team.team_leader = null;
-			this.createUser(res);
-        },
-        err => {
-			console.error(err);
-			this.removeLodaer();
-			this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
-        }
-      );
+			.subscribe(
+				(res: Team) => {
+					this.team.team_pin = res.team_pin;
+					this.team.team_leader = null;
+					this.createUser(res);
+				},
+				err => {
+					console.error(err);
+					this.removeLodaer();
+					this.messagesServices.setMessage(MessageTypes.Error, 'Server Fout', 'Er is een fout met de server opgetreden');
+				}
+			);
 	}
 
 	// Post call to create new user
