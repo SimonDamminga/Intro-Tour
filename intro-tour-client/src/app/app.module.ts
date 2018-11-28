@@ -6,7 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 
 import { UserNameService } from './services/user-name.service';
+import { ScoreService } from './services/score.service';
+import { SocketsService } from './services/sockets.service';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -17,6 +20,8 @@ import { MinutesSecondsPipe } from './pipes/minutes-seconds.pipe';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { PointReplacerPipe } from './pipes/point-replacer.pipe';
 import { TeamJoinComponent } from './components/team-join/team-join.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.component';
 
 const appRoutes: Routes = [
@@ -27,6 +32,7 @@ const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: '', component: LoginComponent },
 	{ path: 'leaderboard', component: LeaderboardComponent },
+	{ path: 'settings', component: SettingsComponent },
     { path: 'admin', component: AdminloginComponent }
 ]
 
@@ -42,9 +48,12 @@ const appRoutes: Routes = [
 		LeaderboardComponent,
 		PointReplacerPipe,
 		TeamJoinComponent,
-		AdminloginComponent
+		AdminloginComponent,
+        HeaderComponent,
+        SettingsComponent
 	],
 	imports: [
+		AppRoutingModule,
 		BrowserModule,
 		FormsModule,
 		HttpClientModule,
@@ -56,7 +65,11 @@ const appRoutes: Routes = [
 			apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
 		})
 	],
-	providers: [UserNameService],
+	providers: [
+		UserNameService,
+		ScoreService,
+		SocketsService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

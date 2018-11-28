@@ -23,8 +23,11 @@
     "@angular/router": "^6.1.10",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
-    "rxjs": "^6.3.3",
-    "semantic-ui-css": "^2.4.1",
+    "laravel-echo": "^1.4.0",
+    "moment": "^2.22.2",
+    "rxjs": "^6.0.0",
+    "semantic-ui-css": "^2.3.2",
+    "socket.io": "^2.1.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

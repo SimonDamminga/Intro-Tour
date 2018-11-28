@@ -1,7 +1,8 @@
 <div id="leaderboard-element">
 	<br>
 	<h1 class="ui header">Leaderboard</h1>
-	<table id="score-table" class="card-shadow ui very basic collapsing celled table">
+	<h1>{{stockQuote}}</h1>
+	<!-- <table id="score-table" class="card-shadow ui very basic collapsing celled table">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -9,16 +10,16 @@
 				<th>Punten</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr *ngFor="let score of tableData; let i = index">
+		<tbody *ngIf="teams$ | async as scores">
+			<tr *ngFor="let score of teams$; let i = index">
 				<td>#{{i + 1}}</td>
 				<td>
 					{{score.team_name}}
 				</td>
 				<td>
-					&euro; {{score.team_score | pointReplacer: '1.' }}
+					&euro; {{scores.team_score | pointReplacer: '1.' }}
 				</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> -->
 </div>

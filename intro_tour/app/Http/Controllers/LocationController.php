@@ -76,7 +76,7 @@ class LocationController extends Controller
     {
         $location->update($request->all());
 
-        return response()->json($location, 204);
+        return response()->json($location, 200);
     }
 
     /**

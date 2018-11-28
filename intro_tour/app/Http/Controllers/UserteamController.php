@@ -14,7 +14,7 @@ class UserteamController extends Controller
      */
     public function index()
     {
-        return 'This Works';
+        //
     }
 
     /**

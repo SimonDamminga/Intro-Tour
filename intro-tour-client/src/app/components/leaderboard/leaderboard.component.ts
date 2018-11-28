@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { MessageTypes } from '../../message-types';
-import { MessagesService } from '../../services/messages.service';
+import { Observable, Subscription } from 'rxjs';
 
+import { ScoreService } from '../../services/score.service';
+import { Team } from '../../team';
 import { SCORES } from '../../mock-scores';
 
 @Component({
@@ -11,38 +12,38 @@ import { SCORES } from '../../mock-scores';
 	templateUrl: './leaderboard.component.html',
 	styleUrls: ['./leaderboard.component.css']
 })
-export class LeaderboardComponent implements OnInit {
-	constructor(private http: HttpClient, private router: Router, private messagesServices: MessagesService) {
+export class LeaderboardComponent implements OnInit, OnDestroy {
+	constructor(private http: HttpClient, private router: Router, private scoreService: ScoreService) {
 		// Temporary for mock data
 		let scoresArray: Array<number>;
 
 		SCORES.sort((a, b) => (a.team_score < b.team_score) ? 1 : ((b.team_score < a.team_score) ? -1 : 0));
 	}
 
+	public stockQuote: Team;
+	private subscription: Subscription;
+
 	private apiUrl: string = 'http://intro-tour.local/api/';
 	public tableData: any = SCORES;
 	private tourID: number = 1;
+	private teams$: Observable<Team>;
 
-	// private getTeamsByTourID() {
-	// 	this.http.get(this.apiUrl + 'teams?tour=' + this.tourID).subscribe(
-	// 		(res: Response) => {
-	// 			this.sortArrayByScore(res);
-	// 		},
-	// 		err => {
-	// 			document.getElementById('tour_id_input').classList.add('error');
-	// 			this.messagesServices.setMessage(MessageTypes.Error, 'Fout', 'Tour ID bestaat niet');
-	// 			console.error(err);
-	// 		}
-	// 	);
-	// }
-
-	// private sortArrayByScore(teams) {
-	// 	teams.sort((a, b) => (a.team_score < b.team_score) ? 1 : ((b.team_score < a.team_score) ? -1 : 0));
-	// 	this.tableData = teams;
-	// }
+	private sortArrayByScore(teams) {
+		teams.sort((a, b) => (a.team_score < b.team_score) ? 1 : ((b.team_score < a.team_score) ? -1 : 0));
+		this.tableData = teams;
+	}
 
 	ngOnInit() {
-		// this.getTeamsByTourID();
+		// this.subscription = this.scoreService.getTeamsByTourID().subscribe(quote => {
+		// 	this.stockQuote = quote;
+		// });
+
+		//this.teams$ = this.scoreService.getTeamsByTourID(this.tourID);
+		//this.sortArrayByScore(this.teams$);
+	}
+
+	ngOnDestroy() {
+		// this.subscription.unsubscribe();
 	}
 
 }

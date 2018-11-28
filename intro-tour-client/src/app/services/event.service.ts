@@ -18,4 +18,8 @@ export class EventService {
 	public getEvents(): Observable<any> {
 		return this.http.get(this.apiUrl + 'events');
 	}
+
+	public getEventsByTourId(id): Observable<any> {
+		return this.http.get(this.apiUrl + 'events/' + id);
+	}
 }

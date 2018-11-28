@@ -46,7 +46,6 @@ Route::post('participants', 'ParticipantController@store');
 Route::put('participants/{participant}', 'ParticipantController@update');
 Route::delete('participants/{participant}', 'ParticipantController@delete');
 /* ParticipantsTeam */
-
 Route::get('teamparticipants', 'UserteamController@index');
 Route::get('teamparticipants/{pin}', 'UserteamController@show');
 
@@ -59,9 +58,9 @@ Route::delete('admins/{admin}', 'AdminController@delete');
 
 /* Tours */
 Route::get('tours', 'TourController@index');
-Route::get('tours/{tour}', 'TourController@show');
+Route::get('tours/{code}', 'TourController@show');
 Route::post('tours', 'TourController@store');
-Route::put('tours/{tour}', 'TourController@update');
+Route::put('tours/{code}', 'TourController@update');
 Route::delete('tours/{tour}', 'TourController@delete');
 
 /* Teams */
@@ -74,9 +73,14 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 Route::get('events/{id}', 'EventController@show');
-// locations
+
+/* locations */
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{id}', 'LocationController@update');
-//questions
+
+/* questions */
 Route::get('questions/{id}', 'QuestionController@show');
+// Hints
+Route::get('hints/{id}', 'HintController@show');
+Route::put('hints/{hint}', 'HintController@update');

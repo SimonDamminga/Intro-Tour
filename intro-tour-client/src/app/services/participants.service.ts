@@ -22,4 +22,8 @@ export class ParticipantsService {
 	createUser(user): Observable<any> {
 		return this.http.post(this.apiUrl + 'participants', user);
 	}
+
+	deleteUser(id): Observable<any> {
+		return this.http.delete(this.apiUrl + 'participants/' + id);
+	}
 }

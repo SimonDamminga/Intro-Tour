@@ -6,17 +6,17 @@
 		<agm-info-window *ngIf="arePointsNear(location) && location.map_icon == 1">
 			<p><span class="info-window-title">{{location.name}}</span>
 				<br><b>{{location.description}}</b><br>
-				<br>Je bent in de buurt van de vraag 
-				<br>klik op de knop om het event te openen 
+				<br>Je bent in de buurt van de vraag
+				<br>klik op de knop om het event te openen
 				<br>voor <b>{{location.points}}</b> punten
 			</p>
-			<button class="small green ui button" (click)="showWindow(location)">OPEN</button>
+			<button *ngIf="showOpenQuestionButton" class="q-open-btn small green ui button" (click)="showWindow(location)">OPEN</button>
 		</agm-info-window>
 		<agm-info-window *ngIf="!arePointsNear(location) && location.map_icon == 1">
-			<p><span class="info-window-title">{{location.name}}</span> 
+			<p><span class="info-window-title">{{location.name}}</span>
 				<br><b>{{location.description}}</b><br>
 				<br>Je bent niet in de buurt
-				<br>kom hier heen om het event te doen 
+				<br>kom hier heen om het event te doen
 				<br>voor <b>{{location.points}}</b> punten
 			</p>
 		</agm-info-window>
@@ -41,14 +41,20 @@
 					{{answer.answer}}.</p>
 				<button type="submit" class="big one ui green button btn">Controleer</button>
 			</form>
-			<button class="normal one ui blue button" (click)='giveHint(location.id)' style="margin-left: 20px; margin-top: 50px;">Koop een hint voor ... punten</button>
+			<div class="q-hint" id="hint-box-{{location.id}}">
+				<p>{{hint.hint}}</p>
+			</div>
+			<div id="buy-hint-{{location.id}}">
+				<button class="normal one ui blue button" id="buy-hint-btn" (click)='showAreYouSureWindow(location.id)'>Koop een
+					hint</button>
+			</div>
 		</div>
 	</div>
 
-	<!-- feedback on given answer -->
-	<div class="feedback-window right" id="right-{{location.id}}">
+	<!-- Modal on given answer -->
+	<div class="modal right" id="right-{{location.id}}">
 		<div class="bar">
-			<p class="feedback-title">Goed Gedaan!</p>
+			<p class="modal-title">Goed Gedaan!</p>
 		</div>
 		<div class="center">
 			<p>Het andwoord wat JIJ hebt gegeven is helemaal goed. En dat is heel knap van jou 👌👍</p>
@@ -58,9 +64,9 @@
 		</div>
 	</div>
 
-	<div class="feedback-window wrong" id="wrong-{{location.id}}">
+	<div class="modal wrong" id="wrong-{{location.id}}">
 		<div class="bar">
-			<p class="feedback-title">Helaas</p>
+			<p class="modal-title">Helaas</p>
 		</div>
 		<div class="center">
 			<p>Het andwoord wat JIJ hebt gegeven is helemaal fout.</p>
@@ -68,6 +74,18 @@
 		<div class="bottom">
 			<button class="ui big button red flex-btn" (click)="close(location.id)">Verder</button>
 			<button class="ui big button orange flex-btn" (click)="tryAgain(location)">Probeer opnieuw</button>
+		</div>
+	</div>
+	<div class="feedback-window sure" id="sure-{{location.id}}">
+		<div class="bar">
+			<p class="feedback-title">Hint Kopen</p>
+		</div>
+		<div class="center">
+			<p>Weet je zeker dat je een hint wilt kopen voor {{hint.cost}} punten bij vraag {{location.id}}</p>
+		</div>
+		<div class="bottom">
+			<button class="ui big button green flex-btn" (click)="buyHint(location.id)">Ja</button>
+			<button class="ui big button red flex-btn" (click)="closeModal(location.id)">Nee</button>
 		</div>
 	</div>
 </div>
