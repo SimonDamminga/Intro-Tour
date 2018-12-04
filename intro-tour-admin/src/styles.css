@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*Remove spin buttons from number input fields*/
+input[type=number].no-spin-btn::-webkit-inner-spin-button, 
+input[type=number].no-spin-btn::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+input[type="number"].no-spin-btn:enabled,
+input[type="number"].no-spin-btn:hover,
+input[type="number"].no-spin-btn:focus,
+input[type="number"].no-spin-btn:disabled,
+input[type="number"].no-spin-btn {
+    -moz-appearance: textfield;
+}
