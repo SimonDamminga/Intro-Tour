@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Time } from 'src/app/time';
+import { Tour } from 'src/app/tour';
+import { TourService } from 'src/app/services/tour.service';
 
 import * as moment from 'moment';
 
@@ -10,7 +12,7 @@ import * as moment from 'moment';
 })
 export class EventComponent implements OnInit {
 
-	constructor() { }
+	constructor(private tourService: TourService) { }
 
 	public time: Time = {
 		h: undefined,
@@ -19,7 +21,7 @@ export class EventComponent implements OnInit {
 		ms: undefined
 	}
 
-	public totalTime() {
+	private totalTime() {
 		let time: Time = new Time;
 
 		for (var key in this.time) {
@@ -34,6 +36,27 @@ export class EventComponent implements OnInit {
 			}
 		}
 		return (time.h * 3600) + (time.m * 60) + time.s;
+	}
+
+	public makeTour() {
+		let tour: Tour = new Tour;
+
+		tour = {
+			name: 'Test Tour',
+			description: 'New tour',
+			team_limit: 5,
+			time_limit: this.totalTime(),
+			time_start: undefined,
+			tour_code: 776655
+		}
+
+		this.tourService.createTeam(tour).subscribe(
+			(res: Response) => {
+				console.log(res);
+			},
+			err => {
+				console.error(err);
+			});
 	}
 
 	ngOnInit() {
