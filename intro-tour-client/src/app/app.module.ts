@@ -22,7 +22,6 @@ import { PointReplacerPipe } from './pipes/point-replacer.pipe';
 import { TeamJoinComponent } from './components/team-join/team-join.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.component';
 
 const appRoutes: Routes = [
 	{ path: 'location', component: LocationPageComponent },
@@ -32,8 +31,7 @@ const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: '', component: LoginComponent },
 	{ path: 'leaderboard', component: LeaderboardComponent },
-	{ path: 'settings', component: SettingsComponent },
-    { path: 'admin', component: AdminloginComponent }
+	{ path: 'settings', component: SettingsComponent }
 ]
 
 @NgModule({
@@ -48,7 +46,6 @@ const appRoutes: Routes = [
 		LeaderboardComponent,
 		PointReplacerPipe,
 		TeamJoinComponent,
-		AdminloginComponent,
         HeaderComponent,
         SettingsComponent
 	],
