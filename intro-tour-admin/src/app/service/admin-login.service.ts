@@ -20,15 +20,17 @@ export class AdminLoginService {
 
   loginTo(data) {
     const httpData = {headers: new HttpHeaders({
-        "email": data[1],
-        "password": data[2]
+        'Content-Type':  'application/json',
     })};
-    return this.http.post(this.apiUrl + "loginRequest" , httpData).subscribe(
+
+    JSON.stringify(data);
+
+    return this.http.post(this.apiUrl + "loginRequest" , data, httpData, ).subscribe(
         res => {
-            console.log(res);
+            console.log(res, httpData);
         },
         err => {
-            console.log("Error occured");
+            console.log("Error occured", httpData);
         }
     );
   }
