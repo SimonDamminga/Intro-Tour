@@ -73,12 +73,16 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 Route::get('events/{id}', 'EventController@show');
+Route::post('events', 'EventController@store');
+Route::post('event-tour', 'EventController@storeEventTour');
+Route::delete('event-tour/{id}', 'EventController@deleteEventTour');
 
 /* locations */
 Route::get('locations', 'LocationController@index');
 Route::get('locations/{id}', 'LocationController@show');
 Route::put('locations/{id}', 'LocationController@update');
 Route::post('locations', 'LocationController@store');
+Route::delete('locations/{location}', 'LocationController@delete');
 
 /* questions */
 Route::get('questions/{id}', 'QuestionController@show');

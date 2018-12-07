@@ -23,10 +23,14 @@
               "src/assets"
             ],
             "styles": [
+              "bower_components/semantic-ui-range/range.css",
               "node_modules/semantic-ui-css/semantic.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "bower_components/semantic-ui-range/range.js",
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -34,6 +38,23 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
                 }
               ],
               "optimization": true,
@@ -56,6 +77,9 @@
           "configurations": {
             "production": {
               "browserTarget": "intro-tour-admin:build:production"
+            },
+            "test": {
+              "browserTarget": "intro-tour-admin:build:test"
             }
           }
         },
@@ -109,6 +133,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "intro-tour-admin:serve:production"
+            },
+            "test": {
+              "devServerTarget": "intro-tour-admin:serve:test"
             }
           }
         },

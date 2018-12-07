@@ -38,7 +38,9 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $location = Location::create($request->all());
+
+        return response()->json($location, 201);
     }
 
     /**
@@ -85,8 +87,10 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Location $location)
     {
-        //
+        $location->delete();
+
+        return response()->json(null, 204);
     }
 }
