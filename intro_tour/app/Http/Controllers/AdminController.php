@@ -50,10 +50,10 @@ class AdminController extends Controller
         $input = $request;
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        //$success['token'] =  $user->createToken('auth')-> accessToken;
-        //$success['name'] =  $user->name;
+        $success['token'] =  $user->createToken('auth')-> accessToken;
+        $success['name'] =  $user->name;
 
-        return response()->json(['success'=>$user], $this-> successStatus);
+        return response()->json(['success'=>$success], $this-> successStatus);
     }
     /**
      * details api
