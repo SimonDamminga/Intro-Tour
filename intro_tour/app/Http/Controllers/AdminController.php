@@ -2,155 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
-use Carbon\Carbon;
+use App\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Admin::all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $admin = Admin::create($request->all());
-
-        return response()->json($admin, 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
-    {
-        return $admin;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        $admin->update($request->all());
-
-        return response()->json($admin, 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Admin $admin
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function delete(Admin $admin)
-    {
-        $admin->delete();
-
-        return response()->json(null, 204);
-    }
-
     public $successStatus = 200;
-
     /**
-     * Create user
+     * login api
      *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
+     * @return \Illuminate\Http\Response
      */
-    public function signup(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
-        ]);
-        $user = new Admin([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
+    public function login(){
+        $data = request()->all();
+        //$data["password"] = hash::make($data["password"]);
+
+        if(Auth::attempt(['email' => $data["email"], 'password' => $data["password"]])){
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('auth')-> accessToken;
+            return response()->json(['success' => $success], $this-> successStatus);
+        }
+        else{
+            return response()->json(['error'=>'Unauthorised', 'data'=>$data], 401);
+        }
     }
 
     /**
-     * Login user and create token
+     * Register api
      *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
+     * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function register()
     {
-//        $request->validate([
-//            'email' => 'required|string|email',
-//            'password' => 'required|string',
-//            'remember_me' => 'boolean'
-//        ]);
-        $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials))
-            return response()->json([
-                'message' => 'Unauthorized',
-                'request' => $request
-            ], 401);
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        //$token->save();
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
-        ]);
-    }
+        $request = request()->all();
 
+        $validator = Validator::make($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+        $input = $request;
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        //$success['token'] =  $user->createToken('auth')-> accessToken;
+        //$success['name'] =  $user->name;
+
+        return response()->json(['success'=>$user], $this-> successStatus);
+    }
     /**
-     * Logout user (Revoke the token)
+     * details api
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse [string] message
+     * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request)
+    public function details()
     {
-        $request->user()->token()->revoke();
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this-> successStatus);
     }
-
 }

@@ -25,12 +25,12 @@ export class AdminLoginService {
 
     JSON.stringify(data);
 
-    return this.http.post(this.apiUrl + "loginRequest" , data, httpData, ).subscribe(
+    return this.http.post(this.apiUrl + "loginRequest" , data, httpData ).subscribe(
         res => {
-            console.log(res, httpData);
+            console.log(res, httpData, data);
         },
         err => {
-            console.log("Error occured", httpData);
+            console.log("Error occured", httpData, data);
         }
     );
   }

@@ -50,9 +50,11 @@ class ParticipantsSeeder extends Seeder
         ([
             [
             'username' => "NekoBot",
+            'email' => "admin@test.nl",
             'password' => hash::make("admin"),
             ],[
             'username' => "KeemStar",
+            'email' => "admin2@test.nl",
             'password' => hash::make("admin"),
             ]
         ]);
