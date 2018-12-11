@@ -197,13 +197,14 @@ export class EventComponent implements OnInit {
 			tour_code: 776655
 		}
 
-		this.tourService.createTeam(tour).subscribe(
-			(res: Response) => {
-				console.log(res);
-			},
-			err => {
-				console.error(err);
-			});
+    this.tourService.createTeam(tour)
+        .subscribe(
+          (res: Response) => {
+            console.log(res);
+          },
+          err => {
+            console.error(err);
+        });
 	}
 
 }

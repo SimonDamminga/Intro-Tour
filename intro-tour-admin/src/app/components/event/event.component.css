@@ -1,6 +1,9 @@
 .page{
 	margin: 10px;
 }
+.top-fifty{
+	margin-top: 27.5%;
+}
 .map{
 	position: absolute;
     width: 50%;
