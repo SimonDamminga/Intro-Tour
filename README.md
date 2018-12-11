@@ -8,8 +8,8 @@
 ### Apache v-hosts opzetten
 
 1. Open file httpd-v-hosts.conf
-    * wamp: {wamp64:install-dir}\bin\apache\apache2.4.27\conf\extra\httpd-v-hosts.conf
-    * xamp: {xamp:install-dir}\apache\conf\extra\httpd-v-hosts.conf
+    * wamp: ``{wamp64:install-dir}\bin\apache\apache2.4.27\conf\extra\httpd-v-hosts.conf``
+    * xamp: ``{xamp:install-dir}\apache\conf\extra\httpd-v-hosts.conf``
 2. Voeg deze regels toe:
  ```
  <VirtualHost *:80>
