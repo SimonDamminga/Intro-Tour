@@ -8,6 +8,7 @@
           <agm-circle [latitude]="chosen_lat" [longitude]="chosen_long" [radius]="range"></agm-circle>
       </agm-marker>
     </agm-map>
+    <!-- location -->
     <form action=""><br>
       <div *ngIf="chosen_lat != null && chosen_long != null">
         <h3>Set range:</h3>
@@ -20,9 +21,28 @@
         <input type="text" [(ngModel)]="description" name="description">
       </div><br><br>
       <button type="submit" class="ui button normal blue" (click)="saveLocation()">Submit</button>
-    </form>
-
+    </form><br>
+    <!-- end location -->
+    <!-- time -->
+    <div class="ui form">
+      <div class="three fields">
+        <div class="two wide field">
+          <label for="hours">Uren</label>
+          <input [(ngModel)]="time.h" numericFormControl id="hours" type="text" placeholder="UU" maxlength="17" pattern="\d*">
+        </div>
+        <div class="two wide field">
+          <label for="minutes">Minuten</label>
+          <input [(ngModel)]="time.m" numericFormControl id="minutes" type="text" placeholder="MM" maxlength="19" pattern="\d*">
+        </div>
+        <div class="two wide field">
+          <label for="seconds">Seconden</label>
+          <input [(ngModel)]="time.s" numericFormControl id="seconds" type="text" placeholder="SS" maxlength="19" pattern="\d*">
+        </div>
+      </div>
+    </div>
+    <button class="ui button normal green" (click)="makeTour()">Oplsaan</button><br><br>
   </div>
+  <!-- end time -->
   <div class="ui cards events">
     <div class="card" *ngFor="let event of events">
       <div class="content">
@@ -46,7 +66,7 @@
       </div>
     </div>
   </div>
-<div class="ui container">
+<!-- <div class="ui container top-fifty">
 	<div class="ui form">
 		<div class="three fields">
 			<div class="two wide field">
@@ -64,4 +84,4 @@
 		</div>
 	</div>
 	<button class="ui button normal green" (click)="makeTour()">Oplsaan</button>
-</div>
+</div> -->
