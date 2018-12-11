@@ -10,7 +10,7 @@
 				<br>klik op de knop om het event te openen
 				<br>voor <b>{{location.points}}</b> punten
 			</p>
-			<button *ngIf="showOpenQuestionButton" class="q-open-btn small green ui button" (click)="showWindow(location)">OPEN</button>
+			<button [disabled]="!showOpenQuestionButton" class="q-open-btn small green ui button" (click)="showWindow(location)">OPEN</button>
 		</agm-info-window>
 		<agm-info-window *ngIf="!arePointsNear(location) && location.map_icon == 1">
 			<p><span class="info-window-title">{{location.name}}</span>
@@ -73,7 +73,8 @@
 		</div>
 		<div class="bottom">
 			<button class="ui big button red flex-btn" (click)="close(location.id)">Verder</button>
-			<button class="ui big button orange flex-btn" (click)="tryAgain(location)">Probeer opnieuw</button>
+			<button class="ui big button orange flex-btn" [disabled]="!showOpenQuestionButton" (click)="tryAgain(location)">Probeer
+				opnieuw</button>
 		</div>
 	</div>
 	<div class="feedback-window sure" id="sure-{{location.id}}">
@@ -85,7 +86,7 @@
 		</div>
 		<div class="bottom">
 			<button class="ui big button green flex-btn" (click)="buyHint(location.id)">Ja</button>
-			<button class="ui big button red flex-btn" (click)="closeModal(location.id)">Nee</button>
+			<button class="ui big button red flex-btn" (click)="closeModal(location.id, 'sure')">Nee</button>
 		</div>
 	</div>
 </div>

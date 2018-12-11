@@ -38,6 +38,7 @@ export class SettingsComponent implements OnInit {
 	}
 
 	public deleteCurrentUser() {
+		this.messagesServices.closeMessage();
 		let user = this.localStorage.getItem('user');
 
 		this.user.deleteUser(user.id).subscribe(

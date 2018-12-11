@@ -88,15 +88,20 @@ export class TeamJoinComponent implements OnInit {
 	}
 
 	public checkIfTeamExists() {
-		this.teamService.getTeamByTeamPin(this.team.team_pin).subscribe((res: Response) => {
-			if (res[0] != undefined) {
-				this.messagesServices.closeMessage();
-				this.addLoader();
-				this.joinTeamCreateUser(res);
-			} else {
-				this.errorHandler('Het Team ID bestaat niet.');
-			}
-		});
+		this.messagesServices.closeMessage();
+		this.teamService.getTeamByTeamPin(this.team.team_pin).subscribe(
+			(res: Response) => {
+				if (res[0] != undefined) {
+					this.messagesServices.closeMessage();
+					this.addLoader();
+					this.joinTeamCreateUser(res);
+				} else {
+					this.errorHandler('Het Team ID bestaat niet.');
+				}
+			},
+			err => {
+				this.errorHandler('Het veld Team Pin moet ingevuld worden');
+			});
 	}
 
 	private sendTeamInfoToNextPage() {

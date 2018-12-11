@@ -6,8 +6,9 @@ import { TeamService } from '../../services/team.service';
 import { LocalstorageService } from '../../services/localstorage.service'
 import { HintService } from '../../services/hint.service';
 import { TimerService } from 'src/app/services/timer.service';
+import { MessagesService } from 'src/app/services/messages.service';
 import { Hint } from '../../hint';
-import * as $ from 'jquery';
+import { MessageTypes } from 'src/app/message-types';
 
 @Component({
 	selector: 'app-location-page',
@@ -54,7 +55,16 @@ export class LocationPageComponent implements OnInit {
 
 	isTracking = false;
 
-	constructor(private _eventService: EventService, private _questionService: QuestionService, private _locationService: LocationService, private teamService: TeamService, private localstorageService: LocalstorageService, private hintService: HintService, private timerService: TimerService) {
+	constructor(
+		private _eventService: EventService,
+		private _questionService: QuestionService,
+		private _locationService: LocationService,
+		private teamService: TeamService,
+		private localstorageService: LocalstorageService,
+		private hintService: HintService,
+		private timerService: TimerService,
+		private messagesServices: MessagesService,
+	) {
 		this.getEvents();
 	}
 
@@ -93,7 +103,7 @@ export class LocationPageComponent implements OnInit {
 				{ maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
 			);
 		} else {
-			alert("Je locatie kan helaas niet worden gevonden");
+			this.messagesServices.setMessage(MessageTypes.Error, 'Oeps', 'Je locatie kan helaas niet worden gevonden');
 		}
 	}
 
