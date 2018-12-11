@@ -7,7 +7,7 @@ import { Location } from '../../location';
 //services
 import { LocationService } from '../../services/location.service';
 import { AdminService } from '../../services/admin.service';
-import {EventService} from '../../services/event.service';
+import { EventService } from '../../services/event.service';
 
 import * as $ from 'jquery';
 
@@ -24,143 +24,143 @@ import * as moment from 'moment';
 })
 export class EventComponent implements OnInit {
 
-  curPosition = {
-    x: null,
-    y: null
-  }
+	curPosition = {
+		x: null,
+		y: null
+	}
 
-  admin;
+	admin;
 
-  chosen_lat = null;
-  chosen_long = null;
+	chosen_lat = null;
+	chosen_long = null;
 
-  range = 12;
-  name: string = 'Naam';
-  description: string = 'Omschrijving';
+	range = 12;
+	name: string = 'Naam';
+	description: string = 'Omschrijving';
 
-  events = [];
+	events = [];
 
-  location: Location = {
-    name: '',
-    description: '',
-    radius: { "data": 12, "type": "circle" },
-    latitude: undefined,
-    longitude: undefined
-  }
-
-
-  constructor(
-    private locationService: LocationService, 
-    private adminService: AdminService,
-    private eventService: EventService,
-    private tourService: TourService
-  ) { }
-
-  ngOnInit() {
-    this.getLocation();
-    this.getEventsByTour();
-  }
-
-  public dynamicSort(property) {
-    var sortOrder = 1;
-    if(property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
-    }
-    return function (a,b) {
-        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        return result * sortOrder;
-    }
-}
+	location: Location = {
+		name: '',
+		description: '',
+		radius: { "data": 12, "type": "circle" },
+		latitude: undefined,
+		longitude: undefined
+	}
 
 
-  public getEventsByTour(){
-    this.events = [];
-    // id is now static but has to be the one from the logged in admin
-    this.adminService.getAdminById(1)
-        .subscribe((admin) => {
-          this.admin = admin[0];
-          this.eventService.getEventsById(this.admin.tour.id)
-              .subscribe((events) => {
-                events.forEach(event => {
-                this.locationService.getLocation(event.event.trigger.data.location_id)
-                    .subscribe((location) => {
-                      event.location = location[0];
-                      this.events.push(event);
-                    });                               
-                });
-              });
-        });
-  }
+	constructor(
+		private locationService: LocationService,
+		private adminService: AdminService,
+		private eventService: EventService,
+		private tourService: TourService
+	) { }
 
-  public getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.curPosition.y = position.coords.longitude;
-          this.curPosition.x = position.coords.latitude;
-        },
-        (err) => { console.error('ERROR(' + err.code + '): ' + err.message); },
-        //{ maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
-      );
-    } else {
-      alert("Je locatie kan helaas niet worden gevonden");
-    }
-  }
+	ngOnInit() {
+		this.getLocation();
+		this.getEventsByTour();
+	}
 
-  public deleteLocation(id, event_id){
+	public dynamicSort(property) {
+		var sortOrder = 1;
+		if (property[0] === "-") {
+			sortOrder = -1;
+			property = property.substr(1);
+		}
+		return function (a, b) {
+			var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+			return result * sortOrder;
+		}
+	}
 
-    this.events.forEach((event, index) => {
-      if(event.location.id == id){
-        this.events.splice(index, 1);    
 
-        this.eventService.deleteEventTour(event_id)
-            .subscribe(() => {});
+	public getEventsByTour() {
+		this.events = [];
+		// id is now static but has to be the one from the logged in admin
+		this.adminService.getAdminById(1)
+			.subscribe((admin) => {
+				this.admin = admin[0];
+				this.eventService.getEventsById(this.admin.tour.id)
+					.subscribe((events) => {
+						events.forEach(event => {
+							this.locationService.getLocation(event.event.trigger.data.location_id)
+								.subscribe((location) => {
+									event.location = location[0];
+									this.events.push(event);
+								});
+						});
+					});
+			});
+	}
 
-        this.locationService.deleteLocation(id)
-            .subscribe(() => {});
-      }
-    });
+	public getLocation() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					this.curPosition.y = position.coords.longitude;
+					this.curPosition.x = position.coords.latitude;
+				},
+				(err) => { console.error('ERROR(' + err.code + '): ' + err.message); },
+				//{ maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
+			);
+		} else {
+			alert("Je locatie kan helaas niet worden gevonden");
+		}
+	}
 
-  }
+	public deleteLocation(id, event_id) {
 
-  public getLocationOnMap(event) {
-    this.chosen_lat = event.coords.lat;
-    this.chosen_long = event.coords.lng;
-  }
+		this.events.forEach((event, index) => {
+			if (event.location.id == id) {
+				this.events.splice(index, 1);
 
-  public saveLocation() {
-    this.location.name = this.name;
-    this.location.description = this.description;
-    this.location.radius = {"data": this.range, "type": "circle"};
-    this.location.latitude = this.chosen_lat;
-    this.location.longitude = this.chosen_long;
+				this.eventService.deleteEventTour(event_id)
+					.subscribe(() => { });
 
-    this.locationService.createLocation(this.location)
-      .subscribe((location) => {
+				this.locationService.deleteLocation(id)
+					.subscribe(() => { });
+			}
+		});
 
-        let event: Event = {
-          trigger: {"data": {"location_id": location.id}, "type": "location"},
-          action: {"data": {"points": 500, "devider": 2, "timeLimit": 240, "question_id": 1}, "type": "question"}
-        }
+	}
 
-        this.eventService.createEvent(event)
-            .subscribe((made_event) => {
+	public getLocationOnMap(event) {
+		this.chosen_lat = event.coords.lat;
+		this.chosen_long = event.coords.lng;
+	}
 
-              let event_tour = {
-                tour_id: this.admin.tour.id,
-                event_id: made_event.id
-              }
+	public saveLocation() {
+		this.location.name = this.name;
+		this.location.description = this.description;
+		this.location.radius = { "data": this.range, "type": "circle" };
+		this.location.latitude = this.chosen_lat;
+		this.location.longitude = this.chosen_long;
 
-              this.eventService.createEventTour(event_tour)
-                  .subscribe(() => {
-                    this.getEventsByTour();
-                  });
+		this.locationService.createLocation(this.location)
+			.subscribe((location) => {
 
-            });
+				let event: Event = {
+					trigger: { "data": { "location_id": location.id }, "type": "location" },
+					action: { "data": { "points": 500, "devider": 2, "timeLimit": 240, "question_id": 1 }, "type": "question" }
+				}
 
-      }, (err) => { console.log(err) });
-  }
+				this.eventService.createEvent(event)
+					.subscribe((made_event) => {
+
+						let event_tour = {
+							tour_id: this.admin.tour.id,
+							event_id: made_event.id
+						}
+
+						this.eventService.createEventTour(event_tour)
+							.subscribe(() => {
+								this.getEventsByTour();
+							});
+
+					});
+
+			}, (err) => { console.log(err) });
+	}
 	public time: Time = {
 		h: undefined,
 		m: undefined,
@@ -197,14 +197,14 @@ export class EventComponent implements OnInit {
 			tour_code: 776655
 		}
 
-    this.tourService.createTeam(tour)
-        .subscribe(
-          (res: Response) => {
-            console.log(res);
-          },
-          err => {
-            console.error(err);
-        });
+		this.tourService.createTeam(tour)
+			.subscribe(
+				(res: Response) => {
+					console.log(res);
+				},
+				err => {
+					console.error(err);
+				});
 	}
 
 }
