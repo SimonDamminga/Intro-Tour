@@ -62,7 +62,7 @@ class ParticipantsSeeder extends Seeder
             'admin_id' => 1,
             'tour_id' => 123456,
             ],[
-            'admin_id' => 2,
+            'admin_id' => 1,
             'tour_id' => 654321,
             ]
         ]);
