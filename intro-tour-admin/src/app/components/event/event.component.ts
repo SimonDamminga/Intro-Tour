@@ -11,11 +11,16 @@ import {EventService} from '../../services/event.service';
 
 import * as $ from 'jquery';
 
+import { Time } from 'src/app/time';
+import { Tour } from 'src/app/tour';
+import { TourService } from 'src/app/services/tour.service';
+
+import * as moment from 'moment';
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+	selector: 'app-event',
+	templateUrl: './event.component.html',
+	styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
 
@@ -47,7 +52,8 @@ export class EventComponent implements OnInit {
   constructor(
     private locationService: LocationService, 
     private adminService: AdminService,
-    private eventService: EventService
+    private eventService: EventService,
+    private tourService: TourService
   ) { }
 
   ngOnInit() {
@@ -155,5 +161,49 @@ export class EventComponent implements OnInit {
 
       }, (err) => { console.log(err) });
   }
+	public time: Time = {
+		h: undefined,
+		m: undefined,
+		s: undefined,
+		ms: undefined
+	}
+
+	private totalTime() {
+		let time: Time = new Time;
+
+		for (var key in this.time) {
+			if (this.time.hasOwnProperty(key)) {
+				if (this.time[key] === undefined || parseInt(this.time[key]) < 0 || this.time[key] === '') {
+					time[key] = 0;
+				}
+				else {
+					let thisTime = this.time[key].replace(/[^0-9]/g, '');
+					time[key] = parseInt(thisTime);
+				}
+			}
+		}
+		return (time.h * 3600) + (time.m * 60) + time.s;
+	}
+
+	public makeTour() {
+		let tour: Tour = new Tour;
+
+		tour = {
+			name: 'Test Tour',
+			description: 'New tour',
+			team_limit: 5,
+			time_limit: this.totalTime(),
+			time_start: undefined,
+			tour_code: 776655
+		}
+
+		this.tourService.createTeam(tour).subscribe(
+			(res: Response) => {
+				console.log(res);
+			},
+			err => {
+				console.error(err);
+			});
+	}
 
 }

@@ -21,7 +21,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Error message or code**  
+```
 If there was an error message or code copy it in here.
+```
 
 **Application**  
  - Version: [e.g. 0.2.1]  
