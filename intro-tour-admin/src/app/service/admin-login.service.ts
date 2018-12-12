@@ -27,10 +27,11 @@ export class AdminLoginService {
 
     return this.http.post(this.apiUrl + "loginRequest" , data, httpData ).subscribe(
         res => {
-            console.log(res, httpData, data);
+            console.log(res);
+            
         },
         err => {
-            console.log("Error occured", httpData, data);
+            console.log("Error occured");
         }
     );
   }

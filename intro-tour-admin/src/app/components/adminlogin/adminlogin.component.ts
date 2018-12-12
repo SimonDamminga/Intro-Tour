@@ -21,15 +21,10 @@ export class AdminloginComponent implements OnInit {
 
     loginTo() {
         let data = {
-            email: "tommy@koning.nl" ,
-            password: "admin"
+            email: $("input[name = 'e-mail']").val(),
+            password: $("input[name = 'password']").val()
         };
-
-        $.ajax({
-            url: this.apiUrl + "loginRequest",
-            type: "post",
-            data: data,
-        });
+        this.adminLoginService.loginTo(data);
     }
 
 }

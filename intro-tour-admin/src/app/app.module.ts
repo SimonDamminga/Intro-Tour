@@ -11,7 +11,7 @@ import { AdminloginComponent } from "./components/adminlogin/adminlogin.componen
 
 const appRoutes: Routes = [
     {path: 'event', component: EventComponent},
-    {path: 'admin', component: AdminloginComponent}
+    {path: 'login', component: AdminloginComponent}
 
 ]
 
