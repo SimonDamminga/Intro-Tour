@@ -28,7 +28,7 @@
 3. Pas de informatie in het ``.env`` bestand aan aan jou instellingen
 4. maak in dien nodig een database aan in [phpMyAdmin](http://localhost/phpmyadmin/index.php)
 4. Verander regel 5 naar ``APP_URL=http://intro-tour.local``
-5. Run command ``composer update``
+5. Run command ``composer install``
 6. Run command ``php artisan key:generate``
 7. Run command ``php migrate:refresh --seed`` om de database te vullen met de test data
 
