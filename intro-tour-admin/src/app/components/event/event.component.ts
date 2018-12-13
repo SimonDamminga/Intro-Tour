@@ -182,7 +182,7 @@ export class EventComponent implements OnInit {
 				}
 			}
 		}
-		return (time.h * 3600) + (time.m * 60) + time.s;
+		return (time.h * 3600) + (time.m * 60);
 	}
 
 	public makeTour() {
