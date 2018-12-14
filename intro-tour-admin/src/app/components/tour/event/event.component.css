@@ -1,0 +1,17 @@
+.top-fifty{
+	margin-top: 27.5%;
+}
+/*.map{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+.events{
+	position: relative;
+	width: 50%;
+	left: 50%;
+	float: right;
+}*/
+agm-map{
+    height: 500px;
+}
