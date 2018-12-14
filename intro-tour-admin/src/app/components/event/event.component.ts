@@ -35,14 +35,14 @@ export class EventComponent implements OnInit {
 	chosen_long = null;
 
 	range = 12;
-	name: string = 'Naam';
-	description: string = 'Omschrijving';
+	name: string
+	description: string
 
 	events = [];
 
 	location: Location = {
-		name: '',
-		description: '',
+		name: undefined,
+		description: undefined,
 		radius: { "data": 12, "type": "circle" },
 		latitude: undefined,
 		longitude: undefined
@@ -154,6 +154,8 @@ export class EventComponent implements OnInit {
 
 						this.eventService.createEventTour(event_tour)
 							.subscribe(() => {
+								this.name = undefined;
+								this.description = undefined;
 								this.getEventsByTour();
 							});
 
