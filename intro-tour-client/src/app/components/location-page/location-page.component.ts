@@ -27,6 +27,7 @@ export class LocationPageComponent implements OnInit {
 	public timeLimit: number;
 	public timeRemaining: number = 0;
 	private timer;
+	public tour;
 	public showOpenQuestionButton: boolean;
 	public hint: Hint = {
 		cost: 0,
@@ -160,9 +161,11 @@ export class LocationPageComponent implements OnInit {
 
 	//alle events ophalen
 	public getEvents() {
-		let tour = this.localstorageService.getItem('tour');
+		this.tour = this.localstorageService.getItem('tour');
 
-		this._eventService.getEventsByTourId(tour.id)
+		console.log(this.tour);
+
+		this._eventService.getEventsByTourId(this.tour.id)
 			.subscribe((res: any) => {
 				this.getLocation(res);
 			});

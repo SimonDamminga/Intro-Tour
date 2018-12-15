@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit {
 						this.teamService.teamName(res[0].team_name);
 						this.tourService.getTour(this.team.tour_id)
 							.subscribe((res) => {
+								console.log(res[0]);
 								this.localstorageService.setItem('tour', res[0]);
 							});
 					});

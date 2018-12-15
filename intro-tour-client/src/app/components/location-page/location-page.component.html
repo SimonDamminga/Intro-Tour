@@ -1,4 +1,7 @@
 <agm-map [latitude]="curLocation.x" [longitude]="curLocation.y" [zoom]="z" [streetViewControl]="false" [zoomControl]="false">
+	<agm-polygon [paths]="tour.play_area" [strokeWeight]="2" [fillOpacity]="0" [strokeColor]="'red'" [strokeOpacity]="0.7">
+		<!-- <agm-polyline ></agm-polyline> -->
+	</agm-polygon>
 	<agm-marker [latitude]="curLocation.x" [longitude]="curLocation.y" [iconUrl]="icons[0]"></agm-marker>
 	<agm-marker *ngFor="let location of locations" [latitude]="location.latitude" [longitude]="location.longitude"
 	 [iconUrl]="icons[location.map_icon]" id="{{location.id}}">
