@@ -24,7 +24,7 @@ class AdminController extends Controller
             return response()->json(['success' => $success], $this-> successStatus);
         }
         else{
-            return response()->json(['error'=>'Unauthorised', 'data'=>$data], 401);
+            return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
 
