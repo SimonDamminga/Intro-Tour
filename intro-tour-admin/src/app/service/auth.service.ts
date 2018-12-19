@@ -15,8 +15,8 @@ export class AuthService {
     private token = localStorage.getItem('currentUser');
 
     userAuth() {
-        if (this.token == undefined || this.token == null) {
-            this.route.navigateByUrl("/");
+        if (this.token == undefined) {
+            this.route.navigateByUrl("/login");
         }
     }
 }

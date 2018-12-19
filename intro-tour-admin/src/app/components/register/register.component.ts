@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminLoginService} from "../../service/admin-login.service";
 import * as $ from "jquery";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -10,11 +11,16 @@ import * as $ from "jquery";
 })
 export class RegisterComponent implements OnInit {
 
-    constructor(private adminLoginService: AdminLoginService) {
+    constructor(
+        private adminLoginService: AdminLoginService,
+        private route: Router
+    ) {
     }
 
     ngOnInit() {
-        //
+        if (localStorage.getItem('currentUser') != undefined) {
+            this.route.navigateByUrl('/dashboard');
+        }
     }
 
     registerTo() {

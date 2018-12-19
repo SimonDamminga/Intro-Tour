@@ -37,7 +37,7 @@ export class AdminLoginService {
         return this.http.post(this.apiUrl + locate, data, httpData).subscribe(
             res => {
                 localStorage.setItem('currentUser', JSON.stringify({token: res['success'].token}));
-                this.route.navigateByUrl('/');
+                this.route.navigateByUrl('/dashboard');
             },
             err => {
                 console.log("Error occured");
