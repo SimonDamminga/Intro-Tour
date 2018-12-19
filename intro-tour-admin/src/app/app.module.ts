@@ -10,10 +10,12 @@ import { NavigateComponent } from './components/navigate/navigate.component';
 import { NumericFormControlDirective } from './directives/numericFormControl.directive';
 
 import { AgmCoreModule } from '@agm/core';
+import { PlayfieldComponent } from './components/event/playfield/playfield.component';
 
 
 const appRoutes: Routes = [
-	{ path: 'event', component: EventComponent }
+  { path: 'event', component: EventComponent },
+  {path: 'make-play-field', component: PlayfieldComponent}
 ]
 
 @NgModule({
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     AppComponent,
     EventComponent,
     NavigateComponent,
-    NumericFormControlDirective
+    NumericFormControlDirective,
+    PlayfieldComponent
   ],
   imports: [
     BrowserModule,
@@ -32,8 +35,9 @@ const appRoutes: Routes = [
       {enableTracing: true}
     ),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc'
-    })
+      apiKey: 'AIzaSyDY85XunkRxZh142fdwf4cpHqg7Q4Yv9Sc',
+      libraries: ['drawing'],
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
