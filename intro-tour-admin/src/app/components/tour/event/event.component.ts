@@ -89,8 +89,7 @@ export class EventComponent implements OnInit {
 					this.curPosition.y = position.coords.longitude;
 					this.curPosition.x = position.coords.latitude;
 				},
-				(err) => { console.error('ERROR(' + err.code + '): ' + err.message); },
-				//{ maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
+				(err) => { console.error('ERROR(' + err.code + '): ' + err.message); }
 			);
 		} else {
 			alert("Je locatie kan helaas niet worden gevonden");

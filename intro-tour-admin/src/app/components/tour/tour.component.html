@@ -1,6 +1,41 @@
+<!-- 
+
+Prev versie
+
 <div class="page-m">
 	<div class="ui grid">
 		<app-event class="row"></app-event>
 		<app-tour-time class="row"></app-tour-time>
 	</div>
+</div> -->
+
+<br><br>
+<div class="ui container">
+	<h1 class="ui header">
+		<div class="content">
+		  Welkom
+		  <div class="sub header">Bekijk jouw tours of maak een nieuwe aan</div>
+		</div>
+	  </h1>
+	  <hr>
+	  <div class="ui cards">
+			<div class="card" *ngFor="let tour of adminTours">
+			  <div class="content">
+				<div class="header">
+				  {{tour.tour.name}}
+				</div>
+				<div class="description">
+				  {{tour.tour.description}}
+				</div>
+			  </div>
+			  <div class="extra content">
+				<div class="ui two buttons">
+				  <div class="ui basic blue button"><i class="fas fa-pen"></i></div>
+				  <div class="ui basic red button"><i class="fas fa-trash-alt"></i></div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+	  <hr>
+	  <button class="ui large button green">Maak een nieuwe tour aan</button>
 </div>
