@@ -73,14 +73,10 @@ export class EventComponent implements OnInit {
 		this.adminService.getAdminById(1)
 			.subscribe((admin) => {
 				this.admin = admin[0];
-				this.eventService.getEventsById(this.admin.tour.id)
+				this.eventService.getEventsByTourId(this.admin.tour.id)
 					.subscribe((events) => {
-						events.forEach(event => {
-							this.locationService.getLocation(event.event.trigger.data.location_id)
-								.subscribe((location) => {
-									event.location = location[0];
-									this.events.push(event);
-								});
+						events.forEach(element => {
+							this.events.push(element[0]);
 						});
 					});
 			});

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\EventTour;
+use App\Tour;
+use App\Location;
+use App\Question;
 use Response;
 use DB;
 
@@ -110,5 +113,25 @@ class EventController extends Controller
         EventTour::where('event_id', $id)->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function getEventsByTourId($id)
+    {
+        $eventTours = EventTour::where('tour_id', $id)->get();
+        $events = [];
+
+        foreach ($eventTours as $eventTour)
+        {
+            $event = Event::where('id', $eventTour->event_id)->get();
+            $location = Location::where('id', $event[0]->trigger['data']['location_id'])->get();
+            $question = Question::where('id', $event[0]->action['data']['question_id'])->with('answers')->get();
+
+            $event[0]->location = $location[0];
+            $event[0]->question = $question[0];
+
+            array_push($events, $event);
+        }
+
+        return response()->json($events, 200);
     }
 }

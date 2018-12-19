@@ -17,6 +17,10 @@ export class EventService {
     return this.http.get(this.apiUrl + 'events/' + id);
   }
 
+  public getEventsByTourId(id: number): Observable<any>{
+    return this.http.get(this.apiUrl + 'events-by-tour/' + id);
+  }
+
   public createEvent(data): Observable<any>{
     return this.http.post(this.apiUrl + 'events', data);
   }

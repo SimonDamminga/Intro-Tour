@@ -73,6 +73,7 @@ Route::delete('teams/{team}', 'TeamController@delete');
 /* Events */
 Route::get('events', 'EventController@index');
 Route::get('events/{id}', 'EventController@show');
+Route::get('events-by-tour/{id}', 'EventController@getEventsByTourId');
 Route::post('events', 'EventController@store');
 Route::post('event-tour', 'EventController@storeEventTour');
 Route::delete('event-tour/{id}', 'EventController@deleteEventTour');

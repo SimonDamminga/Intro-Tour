@@ -34,7 +34,7 @@
 				<div class="card" *ngFor="let event of events">
 					<div class="content">
 						<div class="header">
-							{{event.location.name}} ({{event.event_id}})
+							{{event.location.name}}
 						</div>
 						<div class="meta">
 							{{event.location.description}}
@@ -48,7 +48,7 @@
 					<div class="extra content">
 						<div class="ui two buttons">
 							<div class="ui basic blue button disabled"><i class="fas fa-pen"></i></div>
-							<div class="ui basic red button" (click)="deleteLocation(event.location.id, event.event_id)"><i class="fas fa-trash-alt"></i></div>
+							<div class="ui basic red button" (click)="deleteLocation(event.location.id, event.id)"><i class="fas fa-trash-alt"></i></div>
 						</div>
 					</div>
 				</div>
