@@ -8,12 +8,14 @@ import {EventComponent} from './components/event/event.component';
 import {NavigateComponent} from './components/navigate/navigate.component';
 import {AdminloginComponent} from "./components/adminlogin/adminlogin.component";
 import {RegisterComponent} from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const appRoutes: Routes = [
     {path: 'event', component: EventComponent},
     {path: 'login', component: AdminloginComponent},
-    {path: 'register', component: RegisterComponent}
+    {path: 'register', component: RegisterComponent},
+    {path: 'dashboard', component: DashboardComponent}
 
 ]
 
@@ -23,7 +25,8 @@ const appRoutes: Routes = [
         EventComponent,
         NavigateComponent,
         AdminloginComponent,
-        RegisterComponent
+        RegisterComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,

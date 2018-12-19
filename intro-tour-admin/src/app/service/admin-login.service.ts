@@ -16,6 +16,7 @@ export class AdminLoginService {
         private http: HttpClient,
         private route: Router,
     ) {
+        //
     }
 
     SendTo(data, locate) {

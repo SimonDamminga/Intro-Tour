@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public $successStatus = 200;
+
     /**
      * login api
      *
@@ -63,6 +64,6 @@ class AdminController extends Controller
     public function details()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user], $this-> successStatus);
+        return response()->json(['success' => $user], $this->successStatus);
     }
 }
