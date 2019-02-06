@@ -67,4 +67,4 @@ omdat Chrome de optie biedt om je geolocatie te manipuleren. Dit kan je doen doo
 
 # Test omgeving
 
-Komt binnenkort :)
+Komt binnenkort?
