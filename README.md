@@ -65,6 +65,7 @@ omdat Chrome de optie biedt om je geolocatie te manipuleren. Dit kan je doen doo
     * longitude
 
 
-# Test omgeving
+# Testomgeving
 
-Komt binnenkort?
+[Link naar testomgeving](http://intro-tour.dvc-icta.nl/)
+Hij werkt alleen niet.
