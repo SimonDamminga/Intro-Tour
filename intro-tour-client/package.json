@@ -27,7 +27,7 @@
     "moment": "^2.22.2",
     "rxjs": "^6.0.0",
     "semantic-ui-css": "^2.3.2",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.4.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
